@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Avanzada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 320px;
+        }
+        .calculator h2 {
+            text-align: center;
+            color: #333;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .input-container textarea {
+            width: 100%;
+            height: 50px;
+            padding: 10px;
+            font-size: 1.2em;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .buttons button {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .buttons button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Calculadora Avanzada</h2>
+        <div class="input-container">
+            <textarea id="expression" placeholder="Escribe tu operación aquí (ejemplo: 3+5*2)"></textarea>
+        </div>
+        <div class="buttons">
+            <button onclick="clearInput()">Limpiar</button>
+            <button onclick="calculate()">Calcular</button>
+        </div>
+        <div class="result" id="result">
+            Resultado: 0
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const expression = document.getElementById('expression').value;
+
+            if (expression.trim() === "") {
+                alert("Por favor ingresa una operación.");
+                return;
+            }
+
+            try {
+                // Evaluar la expresión siguiendo las reglas de jerarquía de operaciones
+                const result = eval(expression);
+                if (isNaN(result)) {
+                    throw new Error("La operación no es válida.");
+                }
+                document.getElementById('result').innerText = "Resultado: " + result;
+            } catch (error) {
+                document.getElementById('result').innerText = "Error: " + error.message;
+            }
+        }
+
+        function clearInput() {
+            document.getElementById('expression').value = "";
+            document.getElementById('result').innerText = "Resultado: 0";
+        }
+    </script>
+</body>
+</html>
